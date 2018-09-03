@@ -1,0 +1,272 @@
+# i3 config file (v4)
+
+
+#--------#
+# Basics #
+#--------#
+
+set $mod Mod4
+font pango:monospace 0
+#font pango:DejaVu Sans Mono 8
+
+
+#--------#
+#  GAPS  #
+#--------#
+
+new_window pixel
+for_window [class="^.*"] border pixel 2
+gaps inner 6
+gaps outer 2
+smart_gaps on
+
+
+#---------------------#
+#  WORKSPACE COMMANDS #
+#---------------------#
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+#System commands
+bindsym $mod+Shift+x exec "i3lock-fancy -p"
+bindsym $mod+Return exec urxvt
+bindsym $mod+q kill
+
+#Rofi command - System menu
+bindsym $mod+d exec rofi -theme "/home/shravan/.config/rofi/config-white-weird" -show run 
+
+
+# change focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# For workspace movement
+bindsym $mod+Control+Left workspace prev
+bindsym $mod+Control+Right workspace next
+
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+#resizer
+bindsym $mod+r mode "resize"
+
+
+#Outdated commands
+#bindsym $mod+Return exec i3-sensible-terminal
+#bindsym $mod+d exec dmenu_run -sb grey -sf black
+
+
+#-----------------#
+# CUSTOM COMMANDS #
+#-----------------#
+
+
+bindsym $mod+Shift+t exec thunar
+bindsym $mod+Shift+w exec firefox
+bindsym $mod+t exec xfce4-terminal
+bindsym $mod+Shift+s exec scrot '%Y-%m-%d-%T_$wx$h_scrot.png' -e 'mv $f ~/Pictures'
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+
+
+#--------#
+# COLORS #
+#--------#
+
+
+#red - color -= #C63434
+
+# class                 border  bground text    indicator child_border
+client.focused          #E82525 #1A163A #00FC00 #03F413   #555555
+client.focused_inactive #333333 #5F676A #FFFFFF #484E50   #5F676A
+client.unfocused        #333333 #222222 #888888 #292D2E   #000000
+client.urgent           #2F343A #900000 #FFFFFF #900000   #900000
+client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
+
+client.background       #FFFFFF
+
+
+
+#------------#
+# WORKSPACES #
+#------------#
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1 ""
+set $ws2 ""
+set $ws3 ""
+set $ws4 "Co4e"
+set $ws5 "5. "
+set $ws6 "6. Songs"
+set $ws7 "7. Code"
+set $ws8 "8. Code"
+set $ws9 "9"
+set $ws10 "10"
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+
+#--------#
+# RESIZE #
+#--------#
+
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+
+
+#----------------#
+# BASIC BINDINGS #
+#----------------#
+
+bindcode 121 exec --no-startup-id amixer set Master toggle
+bindcode 122 exec --no-startup-id amixer -D pulse sset Master 5%-
+bindcode 123 exec --no-startup-id amixer -D pulse sset Master 5%+
+bindcode 198 exec --no-startup-id amixer set Capture toggle
+bindcode 232 exec --no-startup-id xbacklight -10
+bindcode 233 exec --no-startup-id xbacklight +10
+bindcode 107 exec --no-startup-id scrot '%Y-%m-%d-%T_$wx$h_scrot.png' -e 'mv $f ~/Pictures/screenshots/'
+bindcode 128 exec --no-startup-id arandr
+
+
+
+
+#-----#
+# BAR #
+#-----#
+
+exec_always --no-startup-id ~/.config/polybar/bar.sh
+#exec_always --no-startup-id ~/.config/i3/polybar/run_polybar.sh
+
+
+
+#--------------#
+#  EXECUTIONS  #
+#--------------#
+
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg) &
+
+exec --no-startup-id compton
+exec --no-startup-id volumeicon
+exec --no-startup-id nm-applet
+
+#Wallpapers
+#exec_always "feh --bg-scale /usr/share/backgrounds/user/g9m8w.jpg"
+#exec_always --no-startup-id feh --bg-scale ~/.config/i3/creepy.jpg
+exec_always "feh --bg-scale /home/shravan/notes/Modding/wallpapers/poluy.jpg"
+
+
+exec_always --no-startup-id '$ws2; exec thunar'
+
+exec_always --no-startup-id xrdb ~/.Xresources
+
+
+#---------------#
+# SPECIAL CASES #
+#---------------#
+
+assign [class="thunar"] $ws2
+assign [class="Firefox"] $ws3
+
+
+# thunar
+#for_window [class="Thunar"] floating enable
+#for_window [class="Thunar"] resize set 1000 700
+#for_window [class="Thunar"] move absolute position center
+

@@ -1,0 +1,11 @@
+rofi.color-enabled: true
+rofi.color-window: #000000, #55C405, #222222
+rofi.color-normal: #000000, #0FF00E, #000000, #222222, #FFFFFF
+rofi.color-active: #000000, #c05c47, #444444, #000000, #000000
+rofi.color-urgent: #000000, #222222, #444444, #222222, #0FF00E
+rofi.width: 800
+rofi.padding: 50
+rofi.font: PragmataPro Nerd Font 18
+rofi.bw: 3
+rofi.separator-style: solid
+rofi.hide-scrollbar: true
