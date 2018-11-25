@@ -15,8 +15,8 @@ font pango:monospace 0
 #--------#
 
 new_window pixel
-for_window [class="^.*"] border pixel 2
-gaps inner 6
+for_window [class="^.*"] border pixel 3
+gaps inner 5
 gaps outer 2
 smart_gaps on
 
@@ -30,11 +30,12 @@ floating_modifier $mod
 
 #System commands
 bindsym $mod+Shift+x exec "i3lock-fancy -p"
-bindsym $mod+Return exec urxvt
+bindsym $mod+Return exec xfce4-terminal
 bindsym $mod+q kill
 
 #Rofi command - System menu
 bindsym $mod+d exec rofi -theme "/home/shravan/.config/rofi/config-white-weird" -show run 
+#bindsym $mod+d exec rofi -theme "/home/shravan/.config/rofi/config-white-weird" -run-list-command "cat ~/.config/fish.aliases.sh" -rnow  -show run
 
 
 # change focus
@@ -119,6 +120,7 @@ bindsym $mod+t exec xfce4-terminal
 bindsym $mod+Shift+s exec scrot '%Y-%m-%d-%T_$wx$h_scrot.png' -e 'mv $f ~/Pictures'
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
+bindsym $mod+b exec /home/shravan/Program/bash/wall_changer.sh
 
 
 
@@ -130,8 +132,8 @@ bindsym $mod+minus scratchpad show
 #red - color -= #C63434
 
 # class                 border  bground text    indicator child_border
-client.focused          #E82525 #1A163A #00FC00 #03F413   #555555
-client.focused_inactive #333333 #5F676A #FFFFFF #484E50   #5F676A
+client.focused          #E82525 #1A163A #00FC00 #03F413   #C63434
+client.focused_inactive #000000 #000000 #FFFFFF #000000   #222222
 client.unfocused        #333333 #222222 #888888 #292D2E   #000000
 client.urgent           #2F343A #900000 #FFFFFF #900000   #900000
 client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
@@ -146,14 +148,25 @@ client.background       #FFFFFF
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
+#set $ws1 "term"
+#set $ws2 "thunar"
+#set $ws3 "firefox"
+#set $ws4 "Co4e"
+#set $ws5 "tt"
+#set $ws6 "6. Songs"
+#set $ws7 "7. Code"
+#set $ws8 "8. Code"
+#set $ws9 "9"
+#set $ws10 "10"
+
 set $ws1 ""
 set $ws2 ""
 set $ws3 ""
-set $ws4 "Co4e"
-set $ws5 "5. "
-set $ws6 "6. Songs"
-set $ws7 "7. Code"
-set $ws8 "8. Code"
+set $ws4 "Code"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
@@ -219,8 +232,8 @@ bindcode 121 exec --no-startup-id amixer set Master toggle
 bindcode 122 exec --no-startup-id amixer -D pulse sset Master 5%-
 bindcode 123 exec --no-startup-id amixer -D pulse sset Master 5%+
 bindcode 198 exec --no-startup-id amixer set Capture toggle
-bindcode 232 exec --no-startup-id xbacklight -10
-bindcode 233 exec --no-startup-id xbacklight +10
+bindcode 232 exec --no-startup-id xbacklight -6
+bindcode 233 exec --no-startup-id xbacklight +6
 bindcode 107 exec --no-startup-id scrot '%Y-%m-%d-%T_$wx$h_scrot.png' -e 'mv $f ~/Pictures/screenshots/'
 bindcode 128 exec --no-startup-id arandr
 
@@ -246,11 +259,17 @@ exec --no-startup-id compton
 exec --no-startup-id volumeicon
 exec --no-startup-id nm-applet
 
-#Wallpapers
+#--------------#
+#  WALLPAPERS  #
+#--------------#
+
 #exec_always "feh --bg-scale /usr/share/backgrounds/user/g9m8w.jpg"
 #exec_always --no-startup-id feh --bg-scale ~/.config/i3/creepy.jpg
-exec_always "feh --bg-scale /home/shravan/notes/Modding/wallpapers/poluy.jpg"
+#exec_always "feh --bg-scale /home/shravan/notes/Modding/wallpapers/poluy.jpg"
+#exec_always "feh --bg-scale /home/shravan/notes/Modding/wallpapers/space.png"
+#exec_always "feh --bg-scale /home/shravan/Downloads/modding/wallpapers/logo1-4k-gaming-wallpaper.jpg"
 
+exec_always --no-startup-id '/home/shravan/Program/bash/wall_changer.sh'
 
 exec_always --no-startup-id '$ws2; exec thunar'
 

@@ -1,0 +1,13 @@
+zh -> Hidden files
+s  -> Shell commands
+;  -> Direct shell
+
+? -> Help
+
+M -> linemode
+z -> Settings
+o -> sort
+g -> goto folder
+m -> bookmarks
+
+^n -> new tab

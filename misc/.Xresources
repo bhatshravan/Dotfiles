@@ -1,5 +1,8 @@
 ! STYLE
-URxvt*font:		xft:fira mono:style=Regular:pixelsize=14:antialias=true
+ URxvt*font:		xft:fira mono:style=Regular:pixelsize=14:antialias=true
+
+! URxvt*font:xft:FuraMono Nerd Font Mono:style=Regular
+
 URxvt*foreground: #f7f7f7
 URxvt*cursorColor: white
 URxvt*depth: 32
