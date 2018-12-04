@@ -1,69 +1,99 @@
-#!/bin/bash
-#
-# ~/.xinitrc
-#
-# Executed by startx (run your window manager from here)
+#!/bin/sh
 
-userresources=$HOME/.Xresources
-usermodmap=$HOME/.Xmodmap
-sysresources=/etc/X11/xinit/.Xresources
-sysmodmap=/etc/X11/xinit/.Xmodmap
+session=${1:-i3}
+#    startx ~/.xinitrc WM
 
-SESSION=${1:-xfce}
 
-# merge in defaults and keymaps
+# session to run if none passed as first arg ($1)
+session=${1:-i3}
 
-if [ -f $sysresources ]; then
-    xrdb -merge $sysresources
-fi
+# this file is executed when calling startx
 
-if [ -f $sysmodmap ]; then
-    xmodmap $sysmodmap
-fi
+# set environment wm for use in scripts
+export WM="$session"
 
-if [ -f "$userresources" ]; then
-    xrdb -merge "$userresources"
-fi
-
-if [ -f "$usermodmap" ]; then
-    xmodmap "$usermodmap"
-fi
-
-# start some nice programs
-
-if [ -d /etc/X11/xinit/xinitrc.d ] ; then
-    for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+# default arch xinit scripts
+if [ -d /etc/X11/xinit/xinitrc.d ]; then
+    for f in /etc/X11/xinit/xinitrc.d/*.sh; do
         [ -x "$f" ] && . "$f"
     done
-    unset f
 fi
 
-get_session(){
-	local dbus_args=(--sh-syntax --exit-with-session)
-	case "$SESSION" in
-		awesome) dbus_args+=(awesome) ;;
-		bspwm) dbus_args+=(bspwm-session) ;;
-		budgie) dbus_args+=(budgie-desktop) ;;
-		cinnamon) dbus_args+=(cinnamon-session) ;;
-		deepin) dbus_args+=(startdde) ;;
-		enlightenment) dbus_args+=(enlightenment_start) ;;
-		fluxbox) dbus_args+=(startfluxbox) ;;
-		gnome) dbus_args+=(gnome-session) ;;
-		i3|i3wm) dbus_args+=(i3 --shmlog-size 0) ;;
-		jwm) dbus_args+=(jwm) ;;
-		kde) dbus_args+=(startkde) ;;
-		lxde) dbus_args+=(startlxde) ;;
-		lxqt) dbus_args+=(lxqt-session) ;;
-		mate) dbus_args+=(mate-session) ;;
-		xfce) dbus_args+=(xfce4-session) ;;
-		openbox) dbus_args+=(openbox-session) ;;
-		*) dbus_args+=("$SESSION") ;;
-	esac
+# user init scripts and settings
+[ -f /etc/X11/xinit/.Xmodmap ] && xmodmap /etc/X11/xinit/.Xmodmap
+[ -f ~/.Xmodmap ] && xmodmap ~/.Xmodmap
+[ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
+[ -f ~/.xprofile ] && source ~/.xprofile
 
-	echo "dbus-launch ${dbus_args[*]}"
-}
+# some things to start for awesome
+# other wm already have these started elsewhere
+if [[ $session == "awesome" ]]; then
 
-xrdb -merge ~/.Xresources &
+    # keyring for storing passwords
+    if hash gnome-keyring &>/dev/null; then
+        gnome-keyring-daemon --start --components=pkcs11 &
+    fi
 
-exec $(get_session)
-#exec i3
+    # gnome polkit
+    if [[ -x /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 ]]; then
+        /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+    fi
+
+    # simulate Alt+F1 with just pressing Super
+    if hash ksuperkey &>/dev/null; then
+        ksuperkey -e 'Super_L=Alt_L|F1' &
+        ksuperkey -e 'Super_R=Alt_L|F1' &
+    fi
+fi
+
+if [[ $session == "dwm" ]]; then
+
+	compton &
+	dunst &
+	mpd &
+	nitrogen --restore
+
+	bar > /dev/null 2>&1 &
+
+    # keyring for storing passwords
+    if hash gnome-keyring &>/dev/null; then
+        gnome-keyring-daemon --start --components=pkcs11 &
+    fi
+
+    # gnome polkit
+    if [[ -x /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 ]]; then
+        /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+    fi
+
+    # simulate Alt+F1 with just pressing Super
+    if hash ksuperkey &>/dev/null; then
+        ksuperkey -e 'Super_L=Alt_L|F1' &
+        ksuperkey -e 'Super_R=Alt_L|F1' &
+    fi
+fi
+
+# display timeout and sleep
+xset s 3600 3600
+xset dpms 3600 3700 4000
+
+# keyboard repeat rate
+xset r rate 400 100
+kbdrate -d 400 -r 50
+
+# urxvt deamon
+urxvtd -q -f -o &
+
+# restore wal colors
+# wal -R &
+
+killall mpd
+
+# do NOT put commands below the exec lines
+case $session in
+    i3|i3wm)    exec i3 ;;
+    bsp|bspwm)  exec bspwm ;;
+    xfce|xfce4) exec startxfce4 ;;
+    openbox)    exec openbox-session ;;
+    awesome)    exec awesome ;;
+    *)          exec "$session" # Unknown, try running it
+esac
