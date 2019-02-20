@@ -1,6 +1,6 @@
 
-set VISUAL vim
-export VISUAL EDITOR vim
+set VISUAL mousepad
+export VISUAL EDITOR mousepad
 export EDITOR
 
 set -g theme_display_date no
@@ -21,12 +21,16 @@ function fish_user_key_bindings
     bind \cl ranger
 end
 
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
 alias l="ls -l"
 alias t='touch'
 alias r="ranger"
 alias e="exit"
 alias shrdownload="wget -mkEp"
 alias configfish="cd ~/.config/fish"
+alias configfish2='mousepad ~/.config/fish/config.fish </dev/null >/dev/null 2>&1 & exit | bash'
 alias shrp="cd ~/Program"
 
 alias sga="git add *"
@@ -40,7 +44,7 @@ alias configLibinput='cd /etc/X11/xorg.conf.d'
 alias configi3='nohup mousepad ~/.config/i3/config </dev/null >/dev/null 2>&1 & '
 alias configpoly='cd  ~/.config/polybar'
 alias configpoly2='mousepad ~/.config/polybar/bar.sh </dev/null >/dev/null 2>&1 & exit'
-alias configpoly3='mousepad ~/.config/polybar/config.ini </dev/null >/dev/null 2>&1 & exit'
+alias configpoly3='mousepad ~/.config/polybar/config-pink.ini </dev/null >/dev/null 2>&1 & exit | bash'
 alias configrofi='cd ~/.config/rofi </dev/null >/dev/null 2>&1 &'
 alias configScripts='cd ~/bin'
 
@@ -62,7 +66,7 @@ alias f='fish'
 alias xflux2='xflux -l 12.9716 -g 77.5946'
 alias xflux3='xflux -l 41.8781 -g 87.6298'
 
-alias download='aria2c -x 5 -d /home/shravan/Downloads/ '
+alias download='aria2c -x 5 -d /home/shravan/Videos/ '
 alias dl='aria2c -x 5 -d /home/shravan/Downloads/ '
 
 alias sqlstart='systemctl start mariadb.service'
@@ -72,5 +76,16 @@ alias sqll='mysql -u root -p'
 
 alias hiscw='cat "/dev/null" > ~/.histfile'
 
+alias sih='cd /home/shravan/Program/node/I-SEE-U'
+alias sih2='cd /home/shravan/Program/node/I-SEE-U/web'
+
+
+
 alias sublime='nohup /opt/sublime_text/sublime_text </dev/null >/dev/null 2>&1 & exit | bash'
 alias android='nohup /home/shravan/Software/android-studio/bin/studio.sh </dev/null >/dev/null 2>&1 &'
+
+alias ftpstart='systemctl start bftpd'
+alias ftpstop='systemctl stop bftpd'
+
+alias animes='python /home/shravan/Program/python/anime_downloader/main.py'
+alias upstream='git fetch upstream ; git checkout master;git merge upstream/master;git push'

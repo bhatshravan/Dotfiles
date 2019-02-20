@@ -89,7 +89,8 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-bindsym $mod+a focus parent
+bindsym $mod+Shift+a focus parent
+bindsym $mod+a exec xfce4-terminal
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -109,6 +110,7 @@ bindsym $mod+r mode "resize"
 #bindsym $mod+d exec dmenu_run -sb grey -sf black
 
 
+
 #-----------------#
 # CUSTOM COMMANDS #
 #-----------------#
@@ -116,11 +118,12 @@ bindsym $mod+r mode "resize"
 
 bindsym $mod+Shift+t exec thunar
 bindsym $mod+Shift+w exec firefox
-bindsym $mod+t exec xfce4-terminal
-bindsym $mod+Shift+s exec scrot '%Y-%m-%d-%T_$wx$h_scrot.png' -e 'mv $f ~/Pictures'
+#bindsym $mod+t exec xfce4-terminal
+bindsym $mod+Shift+s exec scrot '%Y-%m-%d-%T_$wx$h_scrot.png' -e 'mv $f ~/Pictures/screenshots'
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 bindsym $mod+b exec /home/shravan/Program/bash/wall_changer.sh
+
 
 
 
@@ -130,11 +133,12 @@ bindsym $mod+b exec /home/shravan/Program/bash/wall_changer.sh
 
 
 #red - color -= #C63434
+# indicator client.focused = #03F413 
 
 # class                 border  bground text    indicator child_border
-client.focused          #E82525 #1A163A #00FC00 #03F413   #C63434
-client.focused_inactive #000000 #000000 #FFFFFF #000000   #222222
-client.unfocused        #333333 #222222 #888888 #292D2E   #000000
+client.focused          #E82525 #1A163A #00FC00 #CCCCCC   #BBBBBB
+client.focused_inactive #000000 #000000 #FFFFFF #222222   #222222
+client.unfocused        #333333 #222222 #888888 #292D2E   #222222
 client.urgent           #2F343A #900000 #FFFFFF #900000   #900000
 client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
 
@@ -258,6 +262,7 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 exec --no-startup-id compton
 exec --no-startup-id volumeicon
 exec --no-startup-id nm-applet
+exec --no-startup-id fluxgui
 
 #--------------#
 #  WALLPAPERS  #
@@ -266,12 +271,12 @@ exec --no-startup-id nm-applet
 #exec_always "feh --bg-scale /usr/share/backgrounds/user/g9m8w.jpg"
 #exec_always --no-startup-id feh --bg-scale ~/.config/i3/creepy.jpg
 #exec_always "feh --bg-scale /home/shravan/notes/Modding/wallpapers/poluy.jpg"
-#exec_always "feh --bg-scale /home/shravan/notes/Modding/wallpapers/space.png"
+exec_always "feh --bg-scale /home/shravan/notes/Modding/wallpapers/walls/red1.jpg"
 #exec_always "feh --bg-scale /home/shravan/Downloads/modding/wallpapers/logo1-4k-gaming-wallpaper.jpg"
 
-exec_always --no-startup-id '/home/shravan/Program/bash/wall_changer.sh'
+#exec_always --no-startup-id '/home/shravan/Program/bash/wall_changer.sh'
 
-exec_always --no-startup-id '$ws2; exec thunar'
+#exec_always --no-startup-id '$ws2; exec thunar'
 
 exec_always --no-startup-id xrdb ~/.Xresources
 
@@ -280,7 +285,6 @@ exec_always --no-startup-id xrdb ~/.Xresources
 # SPECIAL CASES #
 #---------------#
 
-assign [class="thunar"] $ws2
 assign [class="Firefox"] $ws3
 
 
