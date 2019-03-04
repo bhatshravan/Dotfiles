@@ -1,0 +1,1 @@
+ssh -i "Shravan_key.pem" ubuntu@ec2-52-207-93-202.compute-1.amazonaws.com

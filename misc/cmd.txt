@@ -1,4 +1,14 @@
 							---- COMMANDS 1 -----
+
+Search bar-
+? duck duck go 
+! terminal
+!w wikipedia
+# man
+^ open url=i
+
+
+
 yaourt
 history -c   -->Clear history
 sudo shutdown 0
@@ -7,6 +17,9 @@ gpg --recv-keys 1A09227B1F435A33
 
 journalctl -p 3 -xb
 
+sudo teamviewer --daemon enable 
+pnpm
+hsetroot
 figlet
 hub
 ncmpcpp
@@ -158,6 +171,24 @@ Add alias
 alias aliasname='commands'
 
 
+#/usr/bin /bin /usr/local/bin /.config 
+
+Copy all files to current folder from subfolders ->  find . -mindepth 2 -type f -print -exec cp {} . \;
+
+Encrypt files -> shc -U -f bash -o crypthandler
+
+For editing many file naems at once -> qmv -f do
+
+Split 1 file into many files on delimiter split -t "pagebreak" infile new
+
+Append character to each file -> for FILE in $(find . -type f) ; do echo "$FILE" | tee -a "$FILE"  ; done
+
+For printing lines with specific pattern -> awk -F'[[[y]]]' '{print $0}' "ml" | less
+
+Find files again -> grep -F ';ml 1.py ml;' ml | sed "s/;ml 1.py ml;$//" | less
+
+For appending character to each line -> for file in *.* ; do sed -e "s/$/ ;ml $file ml;/" $file ; done  | less
+
 
 
 
@@ -171,3 +202,9 @@ xdg-mime default Thunar-folder-handler.desktop inode/directory
 
  chsh -l
  chsh -s location
+ 
+Python virtual env
+python3 -m virtualenv env
+source env/bin/activate
+deactivate
+ 

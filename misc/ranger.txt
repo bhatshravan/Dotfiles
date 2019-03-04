@@ -3,11 +3,22 @@ s  -> Shell commands
 ;  -> Direct shell
 
 ? -> Help
+/ -> Search
 
 M -> linemode
 z -> Settings
 o -> sort
 g -> goto folder
 m -> bookmarks
+E -> Edit files in vim
 
-^n -> new tab
+           -------------------     TABS     ---------------------
+C-n -> new tab
+C-q -> Quit tab
+A-1 -> Tab 1
+A-2 -> Tab 2
+A-3 -> Tab 3......
+uq  -> Tab restore
+
+yd ->  Yank directory
+

@@ -1,0 +1,30 @@
+Nodemon 
+Express
+http-server
+Router
+browserify
+mongoose
+passport for authentication
+
+express-generator --USAGE
+	{
+		express -h -> Help
+		express --view=pug myapp
+		cd myapp
+		npm install
+		DEUG=myapp:* npm start
+	}
+
+
+script
+{
+	"dev":"nodemon server.js";
+}
+
+
+
+npm init --y
+npm version patch => minor major
+npm prune --production//for dev or else no production
+npm install package --save --save-dev
+npm list

@@ -1,0 +1,17 @@
+b-ok.org
+bookzz.org
+gen.lib.rus.ec or libgen.in or http://librusec.ucoz.de/forum/26
+http://forum.mobilism.org/viewforum.php?f=106
+
+
+--------
+https://www.reddit.com/r/Piracy/comments/2oftbu/guide_the_idiot_proof_guide_to_downloading_ebooks/
+1.	DCC options ->Ignore section -> Disabled
+
+2.	Servers -> { IRChighway->ebooks } or { Undernet->Bookz or ebooks }
+
+3. 	@Search Book name
+
+4.	Tools->Recieved files -> Open zip -> Paste download link in chat
+
+5.	Wait for file transfer to complete

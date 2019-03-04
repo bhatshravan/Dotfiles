@@ -1,3 +1,31 @@
 git init
 git clone ...git
 git status
+git rm -r --cached *
+
+For non empty
+git init
+git add .
+git commit -m 'AddingBaseCode'
+git remote add origin https://github.com/bhatshravan/....
+git pull origin master --allow-unrelated-histories
+git push -u origin master
+
+git remote set-url origin https://github.com/bhatshravan/REPOSITORY.git
+git push --force-with-lease
+
+
+git config --global credential.helper "cache --timeout=360000"
+git config --global credential.helper store
+
+
+For Upstream fetching
+git remote -v
+git remote add upstream https://github.com/ORIGINAL_OWNER
+git remote -v
+
+git fetch upstream
+git checkout master
+git merge upstream/master
+
+git fetch upstream ; git checkout master;git merge upstream/master
