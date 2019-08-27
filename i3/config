@@ -17,7 +17,7 @@ font pango:monospace 0
 new_window pixel
 for_window [class="^.*"] border pixel 3
 gaps inner 5
-gaps outer 2
+gaps outer 3
 smart_gaps on
 
 
@@ -30,12 +30,13 @@ floating_modifier $mod
 
 #System commands
 bindsym $mod+Shift+x exec "i3lock-fancy -p"
-bindsym $mod+Return exec xfce4-terminal
+bindsym $mod+Return exec gnome-terminal
 bindsym $mod+q kill
 
 #Rofi command - System menu
 bindsym $mod+d exec rofi -theme "/home/shravan/.config/rofi/config-white-weird" -show run 
-#bindsym $mod+d exec rofi -theme "/home/shravan/.config/rofi/config-white-weird" -run-list-command "cat ~/.config/fish.aliases.sh" -rnow  -show run
+#bindsym $mod+d exec rofi -show run 
+#bindsym $mod+d exec rofi -theme "/home/shravan/.config/rofi/config-white-weird" -run-list-command "cat ~/.config/fish.aliases.sh" -rnow  -show drun
 
 
 # change focus
@@ -50,6 +51,9 @@ bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
+
+bindsym $mod+bracketleft focus left
+bindsym $mod+bracketright focus right
 
 # move focused window
 bindsym $mod+Shift+j move left
@@ -78,7 +82,8 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
+#bindsym $mod+s layout stacking
+
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
@@ -90,7 +95,7 @@ bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+Shift+a focus parent
-bindsym $mod+a exec xfce4-terminal
+bindsym $mod+a exec gnome-terminal
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -103,6 +108,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 #resizer
 bindsym $mod+r mode "resize"
+
 
 
 #Outdated commands
@@ -122,9 +128,9 @@ bindsym $mod+Shift+w exec firefox
 bindsym $mod+Shift+s exec scrot '%Y-%m-%d-%T_$wx$h_scrot.png' -e 'mv $f ~/Pictures/screenshots'
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
-bindsym $mod+b exec /home/shravan/Program/bash/wall_changer.sh
-
-
+bindsym $mod+b exec /home/shravan/.config/scripts/scripts/wall_changer.sh
+bindsym $mod+y fullscreen disable; floating enable; resize set 500 500; sticky enable; move window to position 1420 30
+bindsym $mod+z fullscreen disable; floating disable; resize set 400 300; sticky disable;
 
 
 #--------#
@@ -152,27 +158,9 @@ client.background       #FFFFFF
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-#set $ws1 "term"
-#set $ws2 "thunar"
-#set $ws3 "firefox"
-#set $ws4 "Co4e"
-#set $ws5 "tt"
-#set $ws6 "6. Songs"
-#set $ws7 "7. Code"
-#set $ws8 "8. Code"
-#set $ws9 "9"
-#set $ws10 "10"
 
-set $ws1 ""
-set $ws2 ""
-set $ws3 ""
-set $ws4 "Code"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+bindsym $mod+x+h move container to output left
+bindsym $mod+x+j move container to output right
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -197,6 +185,15 @@ bindsym $mod+Shift+7 move container to workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
+
+
+#move container
+
+
+bindsym $mod+c workspace $ws4
+bindsym $mod+x workspace $ws5
+bindsym $mod+t workspace $ws2
+bindsym $mod+s workspace $ws6
 
 
 #--------#
@@ -248,8 +245,7 @@ bindcode 128 exec --no-startup-id arandr
 # BAR #
 #-----#
 
-exec_always --no-startup-id ~/.config/polybar/bar.sh
-#exec_always --no-startup-id ~/.config/i3/polybar/run_polybar.sh
+exec_always --no-startup-id "bash ~/.config/polybar/bar.sh"
 
 
 
@@ -260,25 +256,22 @@ exec_always --no-startup-id ~/.config/polybar/bar.sh
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg) &
 
 exec --no-startup-id compton
-exec --no-startup-id volumeicon
 exec --no-startup-id nm-applet
 exec --no-startup-id fluxgui
+exec --no-startup-id xinput set-prop "ELAN1200:00 04F3:30BA Touchpad" "libinput Tapping Enabled" 1
+
+#exec --no-startup-id conky -c /home/shravan/.config/conky/shailen.conf
+#exec --no-startup-id conky -c /home/shravan/.config/conky/syclo-crimson-bottomleft.conkyrc
 
 #--------------#
 #  WALLPAPERS  #
 #--------------#
 
 #exec_always "feh --bg-scale /usr/share/backgrounds/user/g9m8w.jpg"
-#exec_always --no-startup-id feh --bg-scale ~/.config/i3/creepy.jpg
-#exec_always "feh --bg-scale /home/shravan/notes/Modding/wallpapers/poluy.jpg"
-exec_always "feh --bg-scale /home/shravan/notes/Modding/wallpapers/walls/red1.jpg"
-#exec_always "feh --bg-scale /home/shravan/Downloads/modding/wallpapers/logo1-4k-gaming-wallpaper.jpg"
-
-#exec_always --no-startup-id '/home/shravan/Program/bash/wall_changer.sh'
-
-#exec_always --no-startup-id '$ws2; exec thunar'
+exec_always --no-startup-id '/home/shravan/.config/scripts/scripts/wall_changer.sh'
 
 exec_always --no-startup-id xrdb ~/.Xresources
+
 
 
 #---------------#

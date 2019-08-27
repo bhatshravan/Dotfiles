@@ -1,0 +1,184 @@
+function fish_prompt3
+	set RESET "\[\017\]"
+	set NORMAL "\[\033[0m\]"
+	set RED "\[\033[31;1m\]"
+	set YELLOW "\[\033[33;1m\]"
+	set WHITE "\[\033[37;1m\]"
+	set SMILEY "$WHITE:)$NORMAL"
+	set FROWNY "$RED:($NORMAL"
+	set SELECT "if [ $status = 0 ]; then echo \"$SMILEY\"; else echo \"$FROWNY\"; fi"
+	and set retc blue
+	set_color $retc
+	set_color -o white
+	echo
+	echo -n (pwd|sed "s=$HOME=~=") ⤅
+	echo
+	echo -n "λ -> "
+	#echo -n $SELECT
+	set color normal
+end
+
+
+function fish_prompt2
+  set -l command_status $status
+
+  # Set the second color to red if the last command fails
+  set -l first_color magenta
+  set -l second_color cyan
+
+  if test $command_status -ne 0
+    set first_color brred
+    set second_color red
+  end
+
+  # Print out the current directory.
+  set_color -b $first_color black
+  printf ' %s ' (prompt_pwd)
+
+  # If the working directory is not contained in a Git repo, close the prompt
+  if not __fish_is_git_repository
+    set_color -b normal $first_color
+    printf ' '
+    return 0
+  end
+
+  # Print out the seperator.
+  set_color -b $second_color $first_color
+  printf ''
+
+  # Customize the git prompt.
+  # https://github.com/fish-shell/fish-shell/blob/master/share/functions/__fish_git_prompt.fish
+  set -g __fish_git_prompt_showdirtystate 1
+  set -g __fish_git_prompt_showstashstate 1
+  set -g __fish_git_prompt_showuntrackedfiles 1
+  set -g __fish_git_prompt_showupstream 1
+  set -g __fish_git_prompt_showcleanstate 1
+
+  set -g __fish_git_prompt_char_upstream_prefix ""
+
+  set -g __fish_git_prompt_char_untrackedfiles "?"
+  set -g __fish_git_prompt_char_upstream_equal ""
+  set -g __fish_git_prompt_char_upstream_behind " ↓"
+  set -g __fish_git_prompt_char_upstream_ahead " ↑"
+  set -g __fish_git_prompt_char_upstream_diverged " ↑↓"
+
+  set_color -b $second_color black
+  printf ' %s ' (__fish_git_prompt "%s")
+
+  # Close the prompt.
+  set_color -b normal $second_color
+  printf ' '
+end
+
+
+
+function fish_prompt
+  
+  	#echo -e "\n"
+	  set -l command_status $status
+
+	  # Set the second color to red if the last command fails
+	  set -l first_color brred
+	  set -l second_color cyan
+
+	  if test $command_status -ne 0
+		set first_color brblue
+		set second_color red
+	  end
+
+	and set retc red
+
+    or set retc red
+    tty | string match -q -r tty
+    and set tty tty
+    or set tty pts
+
+    set_color $first_color black
+    if [ $tty = tty ]
+        echo -n .-
+    else
+        echo -n '┬─'
+    end
+    set_color -o green
+    echo -n " "
+    if test "$USER" = root -o "$USER" = toor
+        set_color -o red
+    else
+        set_color -o yellow
+    end
+    set_color -o white
+    #echo -n @
+   
+    set_color  $first_color black
+    
+    echo -n "λ"
+    #echo -n '$'
+    set_color -o yellow
+    printf ' :'
+    #echo -n :(prompt_pwd)
+    
+  set v1 "h"
+  set v2 "f"
+  # If the working directory is not contained in a Git repo, close the prompt
+  #if($v1 -eq $v2)
+  if __fish_is_git_repository
+    
+    set_color -b green white
+    printf ' %s ' (prompt_pwd|sed "s=$HOME=~=")
+
+    set_color -b normal $first_color
+      set_color -b $second_color $first_color
+  printf ''
+
+  # Customize the git prompt.
+  # https://github.com/fish-shell/fish-shell/blob/master/share/functions/__fish_git_prompt.fish
+  set -g __fish_git_prompt_showdirtystate 1
+  set -g __fish_git_prompt_showstashstate 1
+  set -g __fish_git_prompt_showuntrackedfiles 1
+  set -g __fish_git_prompt_showupstream 1
+  set -g __fish_git_prompt_showcleanstate 1
+
+  set -g __fish_git_prompt_char_upstream_prefix ""
+
+  set -g __fish_git_prompt_char_untrackedfiles "?"
+  set -g __fish_git_prompt_char_upstream_equal ""
+  set -g __fish_git_prompt_char_upstream_behind " ↓"
+  set -g __fish_git_prompt_char_upstream_ahead " ↑"
+  set -g __fish_git_prompt_char_upstream_diverged " ↑↓"
+
+  set_color -b $second_color black
+  printf ' %s ' (__fish_git_prompt "%s")
+
+  else
+    printf ' %s ' (prompt_pwd|sed "s=$HOME=~=")
+  end
+
+
+
+
+
+    set_color -o green
+    set_color normal
+    echo
+      set_color $first_color black
+    for job in (jobs)
+        set_color $retc
+        if [ $tty = tty ]
+            echo -n '; '
+        else
+            echo -n '│ '
+        end
+        set_color brown
+        echo $job
+    end
+    set_color normal
+    set_color $first_color black
+    if [ $tty = tty ]
+        echo -n "'->"
+    else
+        echo -n '╰─>'
+    end
+    set_color -o red
+    echo -n ''
+    set_color normal
+end
