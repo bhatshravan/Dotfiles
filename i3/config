@@ -46,6 +46,10 @@ bindsym $mod+l focus up
 bindsym $mod+semicolon focus right
 
 
+bindsym button9 focus right
+bindsym button8 focus left
+
+
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
@@ -125,14 +129,22 @@ bindsym $mod+r mode "resize"
 bindsym $mod+Shift+t exec thunar
 bindsym $mod+Shift+w exec firefox
 #bindsym $mod+t exec xfce4-terminal
-bindsym $mod+Shift+s exec scrot '%Y-%m-%d-%T_$wx$h_scrot.png' -e 'mv $f ~/Pictures/screenshots'
+bindsym $mod+Shift+s exec scrot '%Y-%m-%d-%T_$wx$h_scrot.png' -e 'mv $f /home/shravan/Pictures/screenshots/'
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 bindsym $mod+b exec /home/shravan/.config/scripts/scripts/wall_changer.sh
-bindsym $mod+y fullscreen disable; floating enable; resize set 500 500; sticky enable; move window to position 1420 30
-bindsym $mod+z fullscreen disable; floating disable; resize set 400 300; sticky disable;
+#bindsym $mod+y fullscreen disable; floating enable; resize set 500 400; sticky enable; move window to position 1420 30
+#bindsym $mod+z fullscreen disable; floating disable; resize set 400 300; sticky disable;
+bindsym $mod+y fullscreen disable; floating enable; resize set 600 400; sticky enable; move window to position 1320 0
+bindsym $mod+z fullscreen disable; floating disable; sticky disable;
 
-
+bindsym $mod+Shift+p exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
+bindsym $mod+Shift+i exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous"
+bindsym $mod+Shift+o exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"
+bindsym $mod+Shift+y exec "amixer -D pulse sset Master 5%-"
+bindsym $mod+Shift+u exec "amixer -D pulse sset Master 5%+"
+bindsym $mod+m exec "polybar-msg cmd toggle"
+bindsym $mod+Tab workspace back_and_forth
 #--------#
 # COLORS #
 #--------#
@@ -233,9 +245,11 @@ bindcode 121 exec --no-startup-id amixer set Master toggle
 bindcode 122 exec --no-startup-id amixer -D pulse sset Master 5%-
 bindcode 123 exec --no-startup-id amixer -D pulse sset Master 5%+
 bindcode 198 exec --no-startup-id amixer set Capture toggle
-bindcode 232 exec --no-startup-id xbacklight -6
-bindcode 233 exec --no-startup-id xbacklight +6
-bindcode 107 exec --no-startup-id scrot '%Y-%m-%d-%T_$wx$h_scrot.png' -e 'mv $f ~/Pictures/screenshots/'
+#bindcode 232 exec --no-startup-id xbacklight -6
+#bindcode 233 exec --no-startup-id xbacklight +6
+bindcode 232 exec --no-startup-id /home/shravan/.config/scripts/scripts/b_minus.sh
+bindcode 233 exec --no-startup-id /home/shravan/.config/scripts/scripts/b_plus.sh
+#bindcode 107 exec --no-startup-id scrot '%Y-%m-%d-%T_$wx$h_scrot.png' -e 'mv $f ~/Pictures/screenshots/'
 bindcode 128 exec --no-startup-id arandr
 
 
@@ -247,6 +261,8 @@ bindcode 128 exec --no-startup-id arandr
 
 exec_always --no-startup-id "bash ~/.config/polybar/bar.sh"
 
+exec_always --no-startup-id "bash /home/shravan/.config/scripts/scripts/b_set.sh"
+
 
 
 #--------------#
@@ -257,8 +273,10 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
 exec --no-startup-id compton
 exec --no-startup-id nm-applet
-exec --no-startup-id fluxgui
+#exec --no-startup-id fluxgui
 exec --no-startup-id xinput set-prop "ELAN1200:00 04F3:30BA Touchpad" "libinput Tapping Enabled" 1
+exec --no-startup-id  alttab -i 127x64 -frame "#eb564d"
+
 
 #exec --no-startup-id conky -c /home/shravan/.config/conky/shailen.conf
 #exec --no-startup-id conky -c /home/shravan/.config/conky/syclo-crimson-bottomleft.conkyrc
@@ -269,7 +287,7 @@ exec --no-startup-id xinput set-prop "ELAN1200:00 04F3:30BA Touchpad" "libinput 
 
 #exec_always "feh --bg-scale /usr/share/backgrounds/user/g9m8w.jpg"
 exec_always --no-startup-id '/home/shravan/.config/scripts/scripts/wall_changer.sh'
-
+exec_always --no-startup-id 'echo firewolf | sudo -S chmod 777 -R /sys/devices/platform/faustus/'
 exec_always --no-startup-id xrdb ~/.Xresources
 
 
@@ -278,7 +296,8 @@ exec_always --no-startup-id xrdb ~/.Xresources
 # SPECIAL CASES #
 #---------------#
 
-assign [class="Firefox"] $ws3
+#assign [class="Firefox"] $ws3
+#assign [class="firefox"] $ws3
 
 
 # thunar
